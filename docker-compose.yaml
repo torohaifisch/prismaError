@@ -1,0 +1,23 @@
+version: "3.7"
+services:
+
+  database:
+    container_name: pgdb
+    image: postgres:14-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - ${EXTERNAL_DB_PORT}:${DB_PORT}
+    volumes:
+      - /opt/db:/var/lib/postgresql/data
+    networks:
+      - example
+
+networks:
+  example:
+    driver: bridge
+
+    name: example
